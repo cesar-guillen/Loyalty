@@ -8737,6 +8737,7 @@ position_smoothing_speed = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 show_behind_parent = true
+position = Vector2(1.33333, -6.66667)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_0ja3o")
 offset = Vector2(-2, 0)
