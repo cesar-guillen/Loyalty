@@ -3,11 +3,17 @@ extends CharacterBody2D
 const SPEED = 150.0
 
 @onready var anim = $AnimationPlayer
+
+
 func _physics_process(_delta):
 	var direction : Vector2 = Input.get_vector("ui_left","ui_right", "ui_up","ui_down").normalized()
-	anim.play("run_loop") 
+	anim.play("run_angle") 
 	if direction:	
 		velocity = direction * SPEED
+		if direction.x < 0:
+			$body.flip_h = true
+		else:
+			$body.flip_h = false
 	else:
 		velocity = Vector2.ZERO
 	move_and_slide()

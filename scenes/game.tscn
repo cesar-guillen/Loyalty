@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://bm2u8lle5aofk"]
+[gd_scene load_steps=42 format=3 uid="uid://bm2u8lle5aofk"]
 
 [ext_resource type="Texture2D" uid="uid://q0ruk0j76yk8" path="res://assests/map/decorative.png" id="2_bgb8i"]
 [ext_resource type="Texture2D" uid="uid://cw8p6qnldpxed" path="res://assests/map/MainLev2.0.png" id="2_wjv7h"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dq80n61xsvu32" path="res://assests/sprites/main_c/MainChar - run(loop).png" id="7_yhbkn"]
 [ext_resource type="Texture2D" uid="uid://dflar8ky1ejtf" path="res://assests/sprites/main_c/MainChar - run(start).png" id="8_u3ujh"]
 [ext_resource type="Texture2D" uid="uid://d1qvg3tlbbagw" path="res://assests/sprites/main_c/MainChar - run (forwards).png" id="10_bol7t"]
+[ext_resource type="Texture2D" uid="uid://cqdmbtkcy00ej" path="res://assests/sprites/main_c/MainChar - run(up-angle).png" id="11_cimqq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8t20y"]
 texture = ExtResource("2_wjv7h")
@@ -8831,6 +8832,60 @@ tracks/2/keys = {
 "values": [0, 1, 2, 3]
 }
 
+[sub_resource type="Animation" id="Animation_56hhw"]
+resource_name = "run_front"
+length = 1.00002
+loop_mode = 1
+step = 0.166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("10_bol7t")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("body:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("body:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("body:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5, 0.666667, 0.833333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
 [sub_resource type="Animation" id="Animation_f3fdr"]
 resource_name = "run_loop"
 length = 1.42859
@@ -8937,11 +8992,10 @@ tracks/3/keys = {
 "values": [0, 1]
 }
 
-[sub_resource type="Animation" id="Animation_56hhw"]
-resource_name = "run_front"
-length = 1.00002
-loop_mode = 1
-step = 0.166667
+[sub_resource type="Animation" id="Animation_h65h5"]
+resource_name = "run_angle"
+length = 0.875013
+step = 0.125
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -8952,7 +9006,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("10_bol7t")]
+"values": [ExtResource("11_cimqq")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -8964,7 +9018,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [6]
+"values": [7]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -8985,10 +9039,10 @@ tracks/3/path = NodePath("body:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5, 0.666667, 0.833333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5]
+"values": [0, 1, 2, 3, 4]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1eg2b"]
@@ -8996,6 +9050,7 @@ _data = {
 "RESET": SubResource("Animation_1jrl4"),
 "idle": SubResource("Animation_d0q6s"),
 "idle_back": SubResource("Animation_ogpo1"),
+"run_angle": SubResource("Animation_h65h5"),
 "run_end": SubResource("Animation_71owj"),
 "run_front": SubResource("Animation_56hhw"),
 "run_loop": SubResource("Animation_f3fdr"),
@@ -9118,15 +9173,15 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_0q14t")
 hframes = 8
 
+[node name="shadow" type="Sprite2D" parent="CharacterBody2D/body"]
+z_index = -1
+position = Vector2(-2, 30)
+scale = Vector2(1.28947, 1.5)
+texture = ExtResource("3_0ja3o")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_874jb")
-
-[node name="shadow" type="Sprite2D" parent="CharacterBody2D"]
-z_index = -1
-position = Vector2(-2, 15)
-scale = Vector2(0.644737, 0.75)
-texture = ExtResource("3_0ja3o")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 zoom = Vector2(3, 3)
